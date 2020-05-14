@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Kot</string>
+    <string name="number_picker_formatter">%02d</string>
+    <string name="roboto_light">sans-serif-light</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
+
+</resources>
