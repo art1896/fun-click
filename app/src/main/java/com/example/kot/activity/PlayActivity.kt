@@ -1,4 +1,4 @@
-package com.example.kot
+package com.example.kot.activity
 
 import android.app.Dialog
 import android.content.Context
@@ -14,10 +14,12 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kot.R
+import com.example.kot.activity.MainActivity.Companion.dbReference
+import com.example.kot.model.Record
+import com.example.kot.model.TopUser
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_play.*
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 
 @Suppress("DEPRECATION")
@@ -39,9 +41,15 @@ class PlayActivity : AppCompatActivity() {
         score = 0
     }
 
+    override fun onBackPressed() {
+    }
+
     fun count(view: View) {
 
-        val mp: MediaPlayer = MediaPlayer.create(this, R.raw.u_click)
+        val mp: MediaPlayer = MediaPlayer.create(
+            this,
+            R.raw.u_click
+        )
         if (!MainActivity.mute) {
             mp.start()
         }
@@ -55,7 +63,8 @@ class PlayActivity : AppCompatActivity() {
                 override fun onFinish() {
                     click_button.isClickable = false
                     showDialog()
-                    total_score = score
+                    total_score =
+                        score
                     score = 0
                 }
             }
@@ -97,24 +106,14 @@ class PlayActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun initList() {
-        val score = total_score.toString()
-        val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
-        val date = current.format(formatter)
-        val modeImage = if (MainActivity.isRandom) {
-            R.drawable.ic_rand
-        } else R.drawable.ic_fix
-        val time = MainActivity.duration.toString()
+        val score = total_score
         if (MainActivity.list == null) {
             MainActivity.list = ArrayList()
         }
-        MainActivity.list!!.add(Record(score, date, modeImage, time))
-
-
-
+        MainActivity.list!!.add(Record(score))
     }
 
-    fun randomPos() {
+    private fun randomPos() {
         val displaymetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displaymetrics)
 
@@ -137,13 +136,24 @@ class PlayActivity : AppCompatActivity() {
             .start()
     }
 
-    fun saveRecords() {
+    private fun saveRecords() {
         val sharedPreferences = getSharedPreferences("records", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(MainActivity.list)
         editor.putString("recordsList", json)
         editor.apply()
+
+
+        val max = MainActivity.list!!.maxBy { record -> record.score }!!.score
+        val user = TopUser(
+            LoginActivity.user!!.displayName!!,
+            max,
+            LoginActivity.user!!.photoUrl!!.toString(),
+            MainActivity.userId.toLong()
+        )
+        dbReference.child(MainActivity.userId).setValue(user)
+
     }
 
 }

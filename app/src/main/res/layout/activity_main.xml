@@ -4,14 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@drawable/background_gradient"
+    tools:context=".activity.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/activity_main_userInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="60dp"
+            android:layout_margin="10dp"
+            app:cardElevation="0dp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="50dp">
+
+
+            <ImageView
+                android:id="@+id/user_avatar"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
+            android:text="@string/invalid_username"/>
+
+
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_below="@id/activity_main_userInfo"
         android:text="0 pts"
         android:textStyle="bold"
         android:textColor="@color/colorSliderBackground"
@@ -86,33 +125,33 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+<!--        <RelativeLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1">-->
 
-            <com.shawnlin.numberpicker.NumberPicker
-                android:id="@+id/number_picker"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="50dp"
-                app:np_width="64dp"
-                app:np_height="180dp"
-                app:np_dividerColor="@color/colorPrimary"
-                app:np_formatter="@string/number_picker_formatter"
-                app:np_max="60"
-                app:np_min="1"
-                app:np_selectedTextColor="@color/colorPrimaryDark"
-                app:np_selectedTextSize="@dimen/selected_text_size"
-                app:np_textColor="@color/colorPrimary"
-                app:np_textSize="@dimen/text_size"
-                app:np_typeface="@string/roboto_light"
-                app:np_value="10" />
+<!--            <com.shawnlin.numberpicker.NumberPicker-->
+<!--                android:id="@+id/number_picker"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="50dp"-->
+<!--                app:np_width="64dp"-->
+<!--                app:np_height="180dp"-->
+<!--                app:np_dividerColor="@color/colorPrimary"-->
+<!--                app:np_formatter="@string/number_picker_formatter"-->
+<!--                app:np_max="60"-->
+<!--                app:np_min="1"-->
+<!--                app:np_selectedTextColor="@color/colorPrimaryDark"-->
+<!--                app:np_selectedTextSize="@dimen/selected_text_size"-->
+<!--                app:np_textColor="@color/colorPrimary"-->
+<!--                app:np_textSize="@dimen/text_size"-->
+<!--                app:np_typeface="@string/roboto_light"-->
+<!--                app:np_value="10" />-->
 
 
-        </RelativeLayout>
+<!--        </RelativeLayout>-->
 
 
 
